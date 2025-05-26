@@ -1,0 +1,6 @@
+scenarios:
+  two_drones:
+    moving_next_to_each_other:
+    following_each_other_in_narrow_corridor:
+
+
