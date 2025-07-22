@@ -1,7 +1,6 @@
 from typing import Union
-from utilityx.data.source import Source
-from utilityx.osx.os_path import OsPath
+from utilityx.data.source.source import Source
 
 class Predictor:
-    def __init__(self, sample_source:Source):
-        pass
+    def __init__(self, source:Source):
+        self._source = source
