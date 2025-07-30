@@ -1,3 +1,4 @@
+from robotix.goal.goal import Goal
 from robotix.type.uav.quad_copter.quad_copter import QuadCopter
 from sensorx.obs.sensor_set_obss import SensorSetObss
 class Scenario:
@@ -7,5 +8,5 @@ class Scenario:
     def learn(self)->None:
         pass
 
-    def achieve(self):
+    def achieve(self, goals:tuple[Goal,...]) -> None:
         pass
