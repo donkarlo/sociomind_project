@@ -19,6 +19,10 @@ senarios:
     two_drone_following_each_other_in_narrow_corridor:
       topic_data_dir: "follow-scenario/"
 
+external_tools:
+  python_package:
+    sensorx: 0
+
 
 
 
