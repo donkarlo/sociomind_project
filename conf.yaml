@@ -22,8 +22,3 @@ senarios:
 external_tools:
   python_package:
     sensorx: 0
-
-
-
-
-
