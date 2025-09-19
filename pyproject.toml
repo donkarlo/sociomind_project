@@ -1,3 +1,6 @@
+[project.scripts]
+sociomind = "sociomind.__main__:main"
+
 [build-system]
 requires = ["setuptools>=64", "wheel"]
 build-backend = "setuptools.build_meta"
@@ -11,7 +14,7 @@ dependencies = [
     "ruamel.yaml.clib>=0.2.7; python_version<'3.13' and platform_python_implementation=='CPython'",
 ]
 
-# for development environment: pip install -e .[dev]
+# for development world: pip install -e .[dev]
 [project.optional-dependencies]
 dev = [
     "mypy>=1.10",
