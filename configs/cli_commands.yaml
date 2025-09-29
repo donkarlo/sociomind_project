@@ -1,0 +1,6 @@
+# sociomind experiment old learn
+commands:
+  - xpr:
+      - type:
+        - command:
+            - params

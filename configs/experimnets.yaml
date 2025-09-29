@@ -1,33 +1,34 @@
 oldest:
-  mrs:
-    architecture: "leader_follower"
-    similarity: "homogeneous"
-    sensor:
-      odom_gps:
-        ros:
-          msg_type: "nav_msgs/Odometry"
-          bag:
-            name: "odometry/odom_gps"
-      rp_a2:
-        ros:
-          msg_type: "sensor_msgs/LaserScan"
-          bag:
-            name: "rplidar/scan"
-    robot:
-      model: "tarot_t650"
-      mind:
-        learn: null
-        memory:
-          remembering: null
-      members:
-        leader:
-          ros:
-            bag:
-              name: "uav1"
-        follower:
-          ros:
-            bag:
-              name: "uav2"
+  cli: "experiment.oldest"
+  singularity:
+    mrs:
+      architecture: "leader_follower"
+      similarity:
+        id: "homogeneous"
+        sensors:
+          odom_gps:
+            ros:
+              msg_type: "nav_msgs/Odometry"
+              name: "odometry/odom_gps"
+          rp_a2:
+            ros:
+              msg_type: "sensor_msgs/LaserScan"
+              name: "rplidar/scan"
+        robots:
+          model: "tarot_t650"
+          mind:
+            learn: null
+            memory:
+              remembering: null
+          members:
+            leader:
+              ros:
+                node:
+                  name: "uav1"
+            follower:
+              ros:
+                node:
+                  name: "uav2"
   scenario:
     shared:
       unit:
