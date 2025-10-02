@@ -1,34 +1,32 @@
 oldest:
   cli: "experiment.oldest"
-  singularity:
-    mrs:
-      architecture: "leader_follower"
-      similarity:
-        id: "homogeneous"
-        sensors:
-          odom_gps:
-            ros:
-              msg_type: "nav_msgs/Odometry"
-              name: "odometry/odom_gps"
-          rp_a2:
-            ros:
-              msg_type: "sensor_msgs/LaserScan"
-              name: "rplidar/scan"
-        robots:
-          model: "tarot_t650"
-          mind:
-            learn: null
-            memory:
-              remembering: null
-          members:
-            leader:
-              ros:
-                node:
-                  name: "uav1"
-            follower:
-              ros:
-                node:
-                  name: "uav2"
+  singularity: "mrs"
+  architecture: "leader_follower"
+  similarity: "homogeneous"
+  sensors:
+    odom_gps:
+      ros:
+        msg_type: "nav_msgs/Odometry"
+        name: "odometry/odom_gps"
+    rp_a2:
+      ros:
+        msg_type: "sensor_msgs/LaserScan"
+        name: "rplidar/scan"
+  robots:
+    model: "tarot_t650"
+    mind:
+      learn: null
+      memory:
+        remembering: null
+    members:
+      leader:
+        id: "uav1"
+        ros:
+          name: "uav1"
+      follower:
+        id: "uav2"
+        ros:
+          name: "uav2"
   scenario:
     shared:
       unit:
@@ -40,7 +38,7 @@ oldest:
           file: "uav1-gps-lidar-uav2-gps-lidar.yaml"
       gazebo:
         world:
-          dir: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds/"
+          dir: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds.yaml/"
     members:
       normal:
         goal:
@@ -68,27 +66,11 @@ oldest:
                     msg_count: 434059
                   rp_a2:
                     msg_count: 86902
-        world:
-          name: "hollow_nested_cubes_world"
-          obstacles:
-            shape:
-              name: "hollow_nested_cubes"
-              height: 7.5
-              thickness: 0.05
-            square:
-              - inner:
-                  length: 8
-              - outer:
-                  length: 32
-          gazebo:
-            world:
-              file: "normal-scenario.world"
+        world: "hollow_nested_cubes"
 
       follow:
         topic_data_dir: "follow-scenario/"
-        gazebo:
-          world:
-            file: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds/follow-scenario.world"
+        world: "hollow_nested_cubes_narrows_on_one_side"
 
       two_drones_decrease_distance_in_narrow_corridor:
         topic_data_dir: "next-to-scenario/"
