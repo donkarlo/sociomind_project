@@ -1,5 +1,5 @@
 from physix.world.world import World
 
 
-class HolloNestedCubesNarrowedOnASide(World):
+class HollowNestedCubesNarrowedOnASide(World):
     pass

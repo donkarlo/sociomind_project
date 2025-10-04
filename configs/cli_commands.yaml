@@ -1,6 +1,6 @@
-# sociomind experiment old learn
+# sociomind xpr oldest learn
 commands:
-  - xpr:
-      - type:
-        - command:
-            - params
+  sociomind:
+    xpr:
+      oldest:
+        run: 0

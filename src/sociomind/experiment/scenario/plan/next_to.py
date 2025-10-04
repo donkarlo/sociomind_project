@@ -1,4 +1,4 @@
-from robotix.spa.plan.plan import Plan
+from robotix.plan.plan import Plan
 
 
 class NextTo(Plan):
