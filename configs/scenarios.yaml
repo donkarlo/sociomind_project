@@ -1,0 +1,46 @@
+unit:
+  distance: "meter"
+  time: "second"
+ros:
+  bag:
+    dir: "/home/donkarlo/Dropbox/projs/research/data/self-aware-drones/ctumrs/two-drones/"
+    file: "uav1-gps-lidar-uav2-gps-lidar.yaml"
+gazebo:
+  world:
+    dir: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds.yaml/"
+
+members:
+  normal:
+    mission:
+      leader:
+        desired_states:
+          point_sampled_square:
+            file: "/home/donkarlo/mrs_workspace/src/trajectory_loader/sample_trajectories/rectangle30.txt"
+            width: 30
+            sampling_interval: 0.5
+      follower: null # following leader each time it reaches a point - TODO: check if leader waits until follower reaces the point in parellel
+
+    ros:
+      bag:
+        dir: "normal-scenario/"
+        robot:
+          leader:
+            sensor:
+              odom_gps:
+                msg_count: 434065
+              rp_a2:
+                msg_count: 86901
+          follower:
+            sensor:
+              odom_gps:
+                msg_count: 434059
+              rp_a2:
+                msg_count: 86902
+    world: "hollow_nested_cubes"
+
+  follow:
+    topic_data_dir: "follow-scenario/"
+    world: "hollow_nested_cubes_narrows_on_one_side"
+
+  two_drones_decrease_distance_in_narrow_corridor:
+    topic_data_dir: "next-to-scenario/"
