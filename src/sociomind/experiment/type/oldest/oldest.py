@@ -13,5 +13,6 @@ class Oldest(RobotixExperiment):
     def __init__(self):
         print("Oldest experiment is initializing ...")
         learning_scenarios = [NormalScenario()]
-        test_scenarios = [FollowScenario(), NextToScenario()]
+        #TODO: replace with follow and next to scenarios
+        test_scenarios = [NormalScenario()]
         super().__init__(learning_scenarios, test_scenarios)

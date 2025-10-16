@@ -1,8 +1,8 @@
 from mathx.linalg.vec.vec import Vec
 from physix.kinematics.pose import Pose
 from physix.world.obstacle import Obstacle
-from robotix.experiment.scenario import Scenario
-from robotix.act.action_set import ActionSet
+from robotix.mrs.experiment.scenario import Scenario as MrsScenario
+from robotix.act.action_collection import ActionCollection
 from robotix.type.uav.quad_copter.act.action.go_to import GoTo
 from sociomind.experiment.scenario.world.hollow_nested_cubes import HollowNestedCubes
 from sociomind.experiment.scenario.plan.normal import Normal as NormalPlan
@@ -11,18 +11,35 @@ from sociomind.experiment.type.oldest.mrs import Mrs
 
 
 
-class Normal(Scenario):
+class Normal(MrsScenario):
     def __init__(self):
-        self._world = HollowNestedCubes([Obstacle()])
-        # pose points from normal scenario points
-        self._plan = NormalPlan(ActionSet([GoTo(Pose(Vec([1,2,3]),Vec([1,2,3,4])))]))
-        self._mission = SyncedTurningAroundCorridor()
+        self.__name = Mrs.get_scnario_configs()["members"]["normal"]["name"]
+        self._experience_name = self.__name
+        world = HollowNestedCubes([Obstacle()])
 
         self._robots = Mrs.get_robots()
 
+        # pose points from normal scenario points
+        self._uav1 = self._robots[0]
+        self._uav1_plan = Mrs.get_scnario_plan(self._uav1.get_name(), self.__name)
+        self._uav1_mission = Mrs.get_mission(self._uav1.get_name())
+
+        self._uav2 = self._robots[1]
+        self._uav2_plan = Mrs.get_scnario_plan(self._uav2.get_name(), self.__name)
+        self._uav2_mission = Mrs.get_mission(self._uav2.get_name())
+
+        robots_missions_plans = []
+        robots_missions_plans.append([self._uav1, self._uav1_mission, self._uav1_plan])
+        robots_missions_plans.append([self._uav2, self._uav2_mission, self._uav2_plan])
+
+
+
         # for the moment we use single robot scenario since follower is totally dependent on the leader during running
-        super().__init__(self._robots, self._mission, self._world, self._plan)
+        super().__init__(robots_missions_plans, world, self.__name)
+
 
     def learn(self)->None:
-
-        print("I am in Normal scenario")
+        uav1_lowest_normal_experience_level_storage = self._uav1.get_experience_by_name(self._experience_name).get_lowest_level().get_storage()
+        slc = slice(1,10000)
+        ram = uav1_lowest_normal_experience_level_storage.get_values_by_slice(slc)
+        print(ram)

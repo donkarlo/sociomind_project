@@ -13,18 +13,18 @@ oldest:
         msg_type: "sensor_msgs/LaserScan"
         name: "rplidar/scan"
   robots:
-    model: "tarot_t650"
+    model: "tarot_t650_oldest"
     mind:
       learn: null
       memory:
         remembering: null
     members:
-      leader:
-        id: "uav1"
+      uav1:
+        role: "leader"
         ros:
           name: "uav1"
-      follower:
-        id: "uav2"
+      uav2:
+        role: "follower"
         ros:
           name: "uav2"
   learning_scenrios: [normal]

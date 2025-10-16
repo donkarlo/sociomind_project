@@ -2,7 +2,7 @@ from mathx.linalg.vec.vec import Vec
 from physix.kinematics.pose import Pose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
-from robotix.act.action_set import ActionSet
+from robotix.act.action_collection import ActionCollection
 from robotix.type.uav.quad_copter.act.action.go_to import GoTo
 from sociomind.experiment.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
 from sociomind.experiment.scenario.plan.next_to import NextTo as NextToPlan
@@ -13,13 +13,12 @@ from sociomind.experiment.type.oldest.mrs import Mrs
 class NextTo(Scenario):
     def __init__(self):
         self._world = HollowNestedCubesNarrowedOnASide([Obstacle()])
-        self._plan = NextToPlan(ActionSet([GoTo(Pose(Vec([1, 2, 3]), Vec([1, 2, 3, 4])))]))  # pose points from normal scenario points
+        self._plan = NextToPlan(ActionCollection([GoTo(Pose(Vec([1, 2, 3]), Vec([1, 2, 3, 4])))]))  # pose points from normal scenario points
         self._mission = SyncedTurningAroundCorridor()
 
         self._robots = Mrs.get_robots()
 
-        super().__init__(self._robots, self._mission, self._world,
-                         self._plan)  # for the moment we use single robot scenario since follower is totally dependent on the leader during running
+        super().__init__(self._robots, self._mission, self._world, self._plan, "next_to")
 
     def learn(self) -> None:
         print("I am in NextTo scenario Learn")
