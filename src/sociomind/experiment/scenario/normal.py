@@ -7,26 +7,26 @@ from robotix.type.uav.quad_copter.act.action.go_to import GoTo
 from sociomind.experiment.scenario.world.hollow_nested_cubes import HollowNestedCubes
 from sociomind.experiment.scenario.plan.normal import Normal as NormalPlan
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from sociomind.experiment.type.oldest.mrs import Mrs
+from sociomind.experiment.type.oldest.scenrios import Scenrios
 
 
 
 class Normal(MrsScenario):
     def __init__(self):
-        self.__name = Mrs.get_scnario_configs()["members"]["normal"]["name"]
+        self.__name = Scenrios.get_scnario_configs()["members"]["normal"]["name"]
         self._experience_name = self.__name
         world = HollowNestedCubes([Obstacle()])
 
-        self._robots = Mrs.get_robots()
+        self._robots = Scenrios.get_robots()
 
         # pose points from normal scenario points
         self._uav1 = self._robots[0]
-        self._uav1_plan = Mrs.get_scnario_plan(self._uav1.get_name(), self.__name)
-        self._uav1_mission = Mrs.get_mission(self._uav1.get_name())
+        self._uav1_plan = Scenrios.get_scnario_plan(self._uav1.get_name(), self.__name)
+        self._uav1_mission = Scenrios.get_mission(self._uav1.get_name())
 
         self._uav2 = self._robots[1]
-        self._uav2_plan = Mrs.get_scnario_plan(self._uav2.get_name(), self.__name)
-        self._uav2_mission = Mrs.get_mission(self._uav2.get_name())
+        self._uav2_plan = Scenrios.get_scnario_plan(self._uav2.get_name(), self.__name)
+        self._uav2_mission = Scenrios.get_mission(self._uav2.get_name())
 
         robots_missions_plans = []
         robots_missions_plans.append([self._uav1, self._uav1_mission, self._uav1_plan])

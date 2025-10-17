@@ -7,7 +7,7 @@ from robotix.type.uav.quad_copter.act.action.go_to import GoTo
 from sociomind.experiment.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
 from sociomind.experiment.scenario.plan.next_to import NextTo as NextToPlan
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from sociomind.experiment.type.oldest.mrs import Mrs
+from sociomind.experiment.type.oldest.scenrios import Scenrios
 
 
 class NextTo(Scenario):
@@ -16,7 +16,7 @@ class NextTo(Scenario):
         self._plan = NextToPlan(ActionCollection([GoTo(Pose(Vec([1, 2, 3]), Vec([1, 2, 3, 4])))]))  # pose points from normal scenario points
         self._mission = SyncedTurningAroundCorridor()
 
-        self._robots = Mrs.get_robots()
+        self._robots = Scenrios.get_robots()
 
         super().__init__(self._robots, self._mission, self._world, self._plan, "next_to")
 
