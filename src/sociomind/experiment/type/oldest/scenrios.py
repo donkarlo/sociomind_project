@@ -1,7 +1,6 @@
 from functools import cache
 from robotix.mind.memory.level.level import Level
 from robotix.mind.memory.level.level_stack import LevelStack
-from robotix.mrs.type.homogeneous.collection_generator import CollectionGenerator as RobotCollectionGenerator
 from robotix.plan.mission.mission import Mission
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
 from robotix.plan.plan import Plan
@@ -9,11 +8,9 @@ from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from utilix.data.storage.type.file.file import File
-from utilix.os.path import Path
 from robotix.mind.memory.episode.experience import Experience
 from robotix.mind.memory.episode.experience_set import ExperienceSet
-from physix.kinematics.position import Position
+from physix.quantity.type.position import Position
 from robotix.act.goal.position_tolerance_criterion import PositionToleranceCriterion
 from robotix.act.CollectionGenerator import CollectionGenerator as ActionCollectionGenerator
 from robotix.act.goal.goal import Goal

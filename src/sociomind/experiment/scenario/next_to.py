@@ -1,5 +1,5 @@
 from mathx.linalg.vec.vec import Vec
-from physix.kinematics.pose import Pose
+from physix.quantity.type.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
 from robotix.act.action_collection import ActionCollection
@@ -13,7 +13,7 @@ from sociomind.experiment.type.oldest.scenrios import Scenrios
 class NextTo(Scenario):
     def __init__(self):
         self._world = HollowNestedCubesNarrowedOnASide([Obstacle()])
-        self._plan = NextToPlan(ActionCollection([GoTo(Pose(Vec([1, 2, 3]), Vec([1, 2, 3, 4])))]))  # pose points from normal scenario points
+        self._plan = NextToPlan(ActionCollection([GoTo(QuaternionPose(Vec([1, 2, 3]), Vec([1, 2, 3, 4])))]))  # pose points from normal scenario points
         self._mission = SyncedTurningAroundCorridor()
 
         self._robots = Scenrios.get_robots()
