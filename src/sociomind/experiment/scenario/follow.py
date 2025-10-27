@@ -1,5 +1,5 @@
-from mathx.linalg.vec.vec import Vec
-from physix.quantity.type.quaternion_pose import QuaternionPose
+from mathx.linalg.tensor.vec.vec import Vec
+from physix.quantity.type.kinematic.pose.type.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
 from robotix.act.action_collection import ActionCollection
