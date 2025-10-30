@@ -1,4 +1,4 @@
-from mathx.linalg.tensor.vec.vec import Vec
+from mathx.linalg.tensor.vector.vector import Vector
 from physix.quantity.type.kinematic.pose.type.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
@@ -13,7 +13,7 @@ from sociomind.experiment.type.oldest.scenrios import Scenrios
 class Follow(Scenario):
     def __init__(self):
         self._world = HollowNestedCubesNarrowedOnASide([Obstacle()])
-        self._plan = FollowPlan(ActionCollection([GoTo(QuaternionPose(Vec([1, 2, 3]), Vec([1, 2, 3, 4])))]))  # pose points from normal scenario points
+        self._plan = FollowPlan(ActionCollection([GoTo(QuaternionPose(Vector([1, 2, 3]), Vector([1, 2, 3, 4])))]))  # pose points from normal scenario points
         self._mission = SyncedTurningAroundCorridor()
 
         self._robots = Scenrios.get_robots()

@@ -1,6 +1,6 @@
 from functools import cache
-from robotix.cognition.mind.memory.level.level import Level
-from robotix.cognition.mind.memory.level.level_stack import LevelStack
+from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.level.level import Level as ExperienceLevel
+from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.level.level_stack import LevelStack as ExperienceLevelStack
 from robotix.plan.mission.mission import Mission
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
 from robotix.plan.plan import Plan
@@ -8,8 +8,9 @@ from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.cognition.mind.memory.episode.experience import Experience
-from robotix.cognition.mind.memory.episode.experience_set import ExperienceSet
+from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.experience import Experience
+from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.collection.collection import \
+    Collection as ExperienceCollection
 from physix.quantity.type.kinematic.pose.position.position import Position
 from robotix.act.goal.position_tolerance_criterion import PositionToleranceCriterion
 from robotix.act.CollectionGenerator import CollectionGenerator as ActionCollectionGenerator
@@ -53,8 +54,8 @@ class Scenrios:
         uav1_normal_plan = Scenrios.get_scnario_plan(uav1_name, "normal")
         uav1_normal_memeory_level_stack = Scenrios.get_normal_experience_memory_level_stack(uav1_name, "normal")
         uav1_normal_experience = Experience(uav1_mission, uav1_normal_plan, uav1_normal_memeory_level_stack, "normal")
-        uav1_experience_set = ExperienceSet([uav1_normal_experience])
-        uav1 = TarotT650Oldest(uav1_experience_set, uav1_name)
+        uav1_experience_collection = ExperienceCollection([uav1_normal_experience])
+        uav1 = TarotT650Oldest(uav1_experience_collection, uav1_name)
 
         # uav2 or leader experience
         uav2_name = "uav1"
@@ -62,9 +63,9 @@ class Scenrios:
         uav2_normal_plan = Scenrios.get_scnario_plan(uav2_name, "normal")
         uav2_normal_memeory_level_stack = Scenrios.get_normal_experience_memory_level_stack(uav2_name, "normal")
         uav2_normal_experience = Experience(uav2_mission, uav2_normal_plan, uav2_normal_memeory_level_stack, "normal")
-        uav2_experience_set = ExperienceSet([uav2_normal_experience])
+        uav2_experience_collection = ExperienceCollection([uav2_normal_experience])
 
-        uav2 = TarotT650Oldest(uav2_experience_set, uav2_name)
+        uav2 = TarotT650Oldest(uav2_experience_collection, uav2_name)
 
         return (uav1, uav2)
 
@@ -94,12 +95,12 @@ class Scenrios:
         vec_sep = uav_plan_states_file["vector_sep"]
         component_sep = uav_plan_states_file["vector_components_sep"]
         uav_status_plan_file_path = uav_plan_states_file["path"]
-        action_name = uav_plan["actions"]["id"]
+        action_name = uav_plan["actions"]["name"]
 
         
         if action_name == "goto":
             from robotix.type.uav.quad_copter.act.action.go_to import GoTo
-            sample_goal_state = Position(0,0,0, Scenrios.get_distance_unit())
+            sample_goal_state = Position(0,0,0)
             ptc_val = uav_plan["actions"]["goals"]["acceptance_criterion"]["tolerance"]
             sample_goal_acceptance = PositionToleranceCriterion(ptc_val)
             sample_goal = Goal(sample_goal_state, sample_goal_acceptance)
@@ -109,19 +110,19 @@ class Scenrios:
 
     @staticmethod
     @cache
-    def get_normal_experience_memory_level_stack(robot_name:str, scenario_name:str)->LevelStack:
+    def get_normal_experience_memory_level_stack(robot_name:str, scenario_name:str)-> ExperienceLevelStack:
         scnario_configs = Scenrios.get_scnario_configs()
 
         rosbag_shared_dir = scnario_configs["ros"]["bag"]["dir"]
         normal_scenario_ros_bag = scnario_configs["members"][scenario_name]["ros"]["bag"]
         normal_scenario_sor_bag_dir = normal_scenario_ros_bag["dir"]
-        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["id"]
+        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["name"]
 
         noramal_file_storage_path = rosbag_shared_dir+ normal_scenario_sor_bag_dir + rosbag_shared_file_name
         file = UniformatedMultiValuedYamlFile(noramal_file_storage_path)
 
-        level_0 = Level(file)
-        level_stack = LevelStack([level_0])
+        level_0 = ExperienceLevel(file)
+        level_stack = ExperienceLevelStack([level_0])
 
 
         return level_stack
