@@ -1,6 +1,6 @@
 from functools import cache
-from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.level.level import Level as ExperienceLevel
-from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.level.level_stack import LevelStack as ExperienceLevelStack
+from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.level.level import Level as ExperienceLevel
+from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.level.stack.stack import Stack as ExperienceLevelStack
 from robotix.plan.mission.mission import Mission
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
 from robotix.plan.plan import Plan
@@ -8,13 +8,13 @@ from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.experience import Experience
-from robotix.cognition.mind.memory.long_term.explicit.episodic.experience.collection.collection import \
+from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.experience import Experience
+from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.collection.collection import \
     Collection as ExperienceCollection
 from physix.quantity.type.kinematic.pose.position.position import Position
-from robotix.act.goal.position_tolerance_criterion import PositionToleranceCriterion
-from robotix.act.CollectionGenerator import CollectionGenerator as ActionCollectionGenerator
-from robotix.act.goal.goal import Goal
+from robotix.action.goal.position_tolerance_criterion import PositionToleranceCriterion
+from robotix.action.collection.factory import Factory as ActionCollectionGenerator
+from robotix.action.goal.goal import Goal
 from physix.dimension.unit.unit import Unit
 
 
@@ -90,7 +90,7 @@ class Scenrios:
     @cache
     def get_scnario_plan(robot_name: str, scanario_name:str)->Plan:
         scenario_configs_dict = Scenrios.get_scnario_configs()
-        uav_plan = scenario_configs_dict["members"][scanario_name]["robots"][robot_name]["plan"]
+        uav_plan = scenario_configs_dict["members"][scanario_name]["robots"][robot_name]["pre_plan"]
         uav_plan_states_file = uav_plan["actions"]["goals"]["states"]["file"]
         vec_sep = uav_plan_states_file["vector_sep"]
         component_sep = uav_plan_states_file["vector_components_sep"]

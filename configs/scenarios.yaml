@@ -35,7 +35,7 @@ members:
       uav1: #leader
         plan:
           actions:
-            # same action with similar goal talerance. just states change
+            # same role with similar goal talerance. just states change
             type: "homogeneous"
             name: "goto"
             goals:
@@ -52,7 +52,7 @@ members:
       uav2:
         plan:
           actions:
-            # same action with similar goal talerance. just states change
+            # same role with similar goal talerance. just states change
             type: "homogeneous"
             name: "goto"
             goals:

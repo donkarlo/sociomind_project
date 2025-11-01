@@ -1,6 +1,6 @@
-# sociomind xpr oldest learn
+# sociomind xpr oldest learning
 commands:
   sociomind:
-    xpr:
-      oldest:
-        run: 0
+    experience:
+      normal:
+        remember: 0

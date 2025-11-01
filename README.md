@@ -7,5 +7,5 @@ or how two parents teach skills to a new member
 running an oldest experiment learn module
 
 ```bash
-sociomind xpr oldest learn 
+sociomind xpr oldest learning 
 ```
