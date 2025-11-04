@@ -1,5 +1,5 @@
 mission:
-  # the mission that should be accomplished
+  # the initial_mission that should be accomplished
   name: "square_corridor_navigation"
   goals:
     acceptance_criterion:

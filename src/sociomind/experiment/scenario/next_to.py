@@ -1,13 +1,13 @@
 from mathx.linalg.tensor.vector.vector import Vector
 from physix.quantity.type.kinematic.pose.type.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
-from robotix.lab.scenario import Scenario
-from robotix.action.collection.collection import Collection
+from robotix.experiment.scenario import Scenario
+from robotix.mind.action.collection.collection import Collection
 from robotix.type.uav.quad_copter.act.action.go_to import GoTo
-from sociomind.lab.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
-from sociomind.lab.scenario.plan.next_to import NextTo as NextToPlan
-from sociomind.lab.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from sociomind.lab.type.oldest.scenrios import Scenrios
+from sociomind.experiment.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
+from sociomind.experiment.scenario.plan.next_to import NextTo as NextToPlan
+from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
+from sociomind.experiment.type.oldest.scenrios import Scenrios
 
 
 class NextTo(Scenario):

@@ -1,5 +1,5 @@
 from utilix.ui.cli.cli import Cli as CliBase
-from sociomind.lab.cli import Cli as SociomindExperimentCli
+from sociomind.experiment.cli import Cli as SociomindExperimentCli
 
 class Cli(CliBase):
     def run(self)-> None:

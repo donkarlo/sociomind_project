@@ -1,15 +1,15 @@
 from physix.world.obstacle import Obstacle
 from robotix.mrs.experiment.scenario import Scenario as MrsScenario
-from sociomind.lab.scenario.world.hollow_nested_cubes import HollowNestedCubes
-from sociomind.lab.type.oldest.scenrios import Scenrios
+from sociomind.experiment.scenario.world.hollow_nested_cubes import HollowNestedCubes
+from sociomind.experiment.type.oldest.scenrios import Scenrios
 
-from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.level.type.misson_preplan_sensor import MissionPrePlanSensor  as TraceCollectionLevel
+from robotix.mind.memory.long_term.explicit.episodic.experience.level.type.misson_preplan_sensor import MissionPrePlanSensor  as TraceCollectionLevel
 from utilix.data.storage.storage import Storage
 
 
 class Normal(MrsScenario):
     def __init__(self):
-        self.__name = Scenrios.get_scnario_configs()["members"]["normal"]["name"]
+        self.__name = Scenrios.get_scnario_configs()["members"]["normal"]["label"]
         self._experience_name = self.__name
         world = HollowNestedCubes([Obstacle()])
 

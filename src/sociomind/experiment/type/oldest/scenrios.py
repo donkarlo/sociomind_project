@@ -1,20 +1,20 @@
 from functools import cache
-from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.level.level import Level as ExperienceLevel
-from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.level.stack.stack import Stack as ExperienceLevelStack
-from robotix.plan.mission.mission import Mission
+from robotix.mind.memory.long_term.explicit.episodic.experience.level.level import Level as ExperienceLevel
+from robotix.mind.memory.long_term.explicit.episodic.experience.level.stack.stack import Stack as ExperienceLevelStack
+from robotix.mind.goal.composite.mission.mission import Mission
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from robotix.plan.plan import Plan
+from robotix.mind.action.composite.plan.plan import Plan
 from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.experience import Experience
-from robotix.mental.cognition.memory.long_term.explicit.episodic.experience.collection.collection import \
+from robotix.mind.memory.long_term.explicit.episodic.experience.experience import Experience
+from robotix.mind.memory.long_term.explicit.episodic.experience.collection.collection import \
     Collection as ExperienceCollection
 from physix.quantity.type.kinematic.pose.position.position import Position
-from robotix.action.goal.position_tolerance_criterion import PositionToleranceCriterion
-from robotix.action.collection.factory import Factory as ActionCollectionGenerator
-from robotix.action.goal.goal import Goal
+from robotix.mind.goal.position_tolerance_criterion import PositionToleranceCriterion
+from robotix.mind.action.collection.factory import Factory as ActionCollectionGenerator
+from robotix.mind.goal.goal import Goal
 from physix.dimension.unit.unit import Unit
 
 
@@ -80,7 +80,7 @@ class Scenrios:
     @cache
     def get_mission(robot_name:str)->Mission:
         scenario_configs_dict = Scenrios.get_scnario_configs()
-        goal_states = scenario_configs_dict["mission"]["goals"]["robots"][robot_name]["states"]
+        goal_states = scenario_configs_dict["initial_mission"]["goals"]["robots"][robot_name]["states"]
 
         mission = SyncedTurningAroundCorridor(goal_states)
 
@@ -95,7 +95,7 @@ class Scenrios:
         vec_sep = uav_plan_states_file["vector_sep"]
         component_sep = uav_plan_states_file["vector_components_sep"]
         uav_status_plan_file_path = uav_plan_states_file["path"]
-        action_name = uav_plan["actions"]["name"]
+        action_name = uav_plan["actions"]["label"]
 
         
         if action_name == "goto":
@@ -116,7 +116,7 @@ class Scenrios:
         rosbag_shared_dir = scnario_configs["ros"]["bag"]["dir"]
         normal_scenario_ros_bag = scnario_configs["members"][scenario_name]["ros"]["bag"]
         normal_scenario_sor_bag_dir = normal_scenario_ros_bag["dir"]
-        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["name"]
+        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["label"]
 
         noramal_file_storage_path = rosbag_shared_dir+ normal_scenario_sor_bag_dir + rosbag_shared_file_name
         file = UniformatedMultiValuedYamlFile(noramal_file_storage_path)
