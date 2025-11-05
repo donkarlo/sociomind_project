@@ -1,6 +1,6 @@
 from functools import cache
-from robotix.mind.memory.long_term.explicit.episodic.experience.level.level import Level as ExperienceLevel
-from robotix.mind.memory.long_term.explicit.episodic.experience.level.stack.stack import Stack as ExperienceLevelStack
+from robotix.mind.memory.long_term.explicit.experience.modality.stack.layer.layer import Layer as ExperienceLevel
+from robotix.mind.memory.long_term.explicit.experience.modality.stack.stack import Stack as ExperienceLevelStack
 from robotix.mind.goal.composite.mission.mission import Mission
 from sociomind.experiment.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
 from robotix.mind.action.composite.plan.plan import Plan
@@ -8,8 +8,8 @@ from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.mind.memory.long_term.explicit.episodic.experience.experience import Experience
-from robotix.mind.memory.long_term.explicit.episodic.experience.collection.collection import \
+from robotix.mind.memory.long_term.explicit.experience.experience import Experience
+from robotix.mind.memory.long_term.explicit.experience.collection.collection import \
     Collection as ExperienceCollection
 from physix.quantity.type.kinematic.pose.position.position import Position
 from robotix.mind.goal.position_tolerance_criterion import PositionToleranceCriterion
@@ -90,12 +90,12 @@ class Scenrios:
     @cache
     def get_scnario_plan(robot_name: str, scanario_name:str)->Plan:
         scenario_configs_dict = Scenrios.get_scnario_configs()
-        uav_plan = scenario_configs_dict["members"][scanario_name]["robots"][robot_name]["pre_plan"]
+        uav_plan = scenario_configs_dict["modality_members"][scanario_name]["robots"][robot_name]["pre_plan"]
         uav_plan_states_file = uav_plan["actions"]["goals"]["states"]["file"]
         vec_sep = uav_plan_states_file["vector_sep"]
         component_sep = uav_plan_states_file["vector_components_sep"]
         uav_status_plan_file_path = uav_plan_states_file["path"]
-        action_name = uav_plan["actions"]["label"]
+        action_name = uav_plan["actions"]["name"]
 
         
         if action_name == "goto":
@@ -114,9 +114,9 @@ class Scenrios:
         scnario_configs = Scenrios.get_scnario_configs()
 
         rosbag_shared_dir = scnario_configs["ros"]["bag"]["dir"]
-        normal_scenario_ros_bag = scnario_configs["members"][scenario_name]["ros"]["bag"]
+        normal_scenario_ros_bag = scnario_configs["modality_members"][scenario_name]["ros"]["bag"]
         normal_scenario_sor_bag_dir = normal_scenario_ros_bag["dir"]
-        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["label"]
+        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["name"]
 
         noramal_file_storage_path = rosbag_shared_dir+ normal_scenario_sor_bag_dir + rosbag_shared_file_name
         file = UniformatedMultiValuedYamlFile(noramal_file_storage_path)
