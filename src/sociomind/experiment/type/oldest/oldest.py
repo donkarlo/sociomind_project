@@ -1,10 +1,7 @@
-from typing import List
-
 from robotix.experiment.experiment import Experiment as RobotixExperiment
-from robotix.robot import Robot
-from sociomind.experiment.scenario.normal import Normal as NormalScenario
-from sociomind.experiment.scenario.follow import Follow as FollowScenario
-from sociomind.experiment.scenario.next_to import NextTo as NextToScenario
+from sociomind.experiment.type.oldest.scenario.normal import Normal as NormalScenario
+from sociomind.experiment.type.oldest.scenario.follow import Follow as FollowScenario
+from sociomind.experiment.type.oldest.scenario.next_to import NextTo as NextToScenario
 from sociomind.experiment.type.oldest.scenrios import Scenrios
 
 

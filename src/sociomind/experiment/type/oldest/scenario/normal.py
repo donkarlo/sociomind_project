@@ -1,15 +1,15 @@
 from physix.world.obstacle import Obstacle
-from robotix.mrs.experiment.scenario import Scenario as MrsScenario
-from sociomind.experiment.scenario.world.hollow_nested_cubes import HollowNestedCubes
+from multirobotix.experiment.scenario import Scenario as MrsScenario
+from sociomind.experiment.type.oldest.scenario.world.hollow_nested_cubes import HollowNestedCubes
 from sociomind.experiment.type.oldest.scenrios import Scenrios
 
-from robotix.mind.memory.long_term.explicit.experience.modality.stack.layer.type.misson_preplan_sensor import MissionPrePlanSensor  as TraceCollectionLevel
+from robotix.mind.memory.stack.layer.layer import Factory  as TraceGroupLevel
 from utilix.data.storage.storage import Storage
 
 
 class Normal(MrsScenario):
     def __init__(self):
-        self.__name = Scenrios.get_scnario_configs()["modality_members"]["normal"]["name"]
+        self.__name = Scenrios.get_scnario_configs()["members"]["normal"]["name"]
         self._experience_name = self.__name
         world = HollowNestedCubes([Obstacle()])
 
@@ -35,13 +35,13 @@ class Normal(MrsScenario):
 
 
     def remember(self)->None:
-        uav1_lowest_normal_experience_level_storage:Storage = self._uav1.get_experience_by_name(self._experience_name).get_lowest_layer().get_storage()
+        uav1_lowest_normal_experience_level_storage:Storage = self._uav1.remember_experience_by_name(self._experience_name).get_lowest_layer().get_storage()
 
-        trace_collection = TraceCollectionLevel(self._uav1_mission, self._uav1_plan)
-        uav1_lowest_normal_experience_level_storage.attach_add_value_observer(trace_collection)
+        trace_group = TraceGroupLevel(self._uav1_mission, self._uav1_plan)
+        uav1_lowest_normal_experience_level_storage.attach_add_value_observer(trace_group)
 
         slc = slice(1,100)
         ram = uav1_lowest_normal_experience_level_storage.get_values_by_slice(slc)
 
-        traces = trace_collection.get_traces()
+        traces = trace_group._set_traces()
         print(ram)
