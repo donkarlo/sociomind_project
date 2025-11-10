@@ -9,8 +9,7 @@ from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
 from robotix.mind.memory.long_term.explicit.episodic.experience.experience import Experience
-from robotix.mind.memory.long_term.explicit.auto_biographic.episodic.experience.collection.collection import \
-    Collection as ExperienceCollection
+from robotix.mind.memory.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
 from physix.quantity.type.kinematic.pose.position.position import Position
 from robotix.mind.goal.position_tolerance_criterion import PositionToleranceCriterion
 from robotix.mind.action.collection.factory import Factory as ActionCollectionGenerator
@@ -54,8 +53,8 @@ class Scenrios:
         uav1_normal_plan = Scenrios.get_scnario_plan(uav1_name, "normal")
         uav1_normal_memeory_level_stack = Scenrios.get_normal_experience_memory_level_stack(uav1_name, "normal")
         uav1_normal_experience = Experience(uav1_mission, uav1_normal_plan, uav1_normal_memeory_level_stack, "normal")
-        uav1_experience_collection = ExperienceCollection([uav1_normal_experience])
-        uav1 = TarotT650Oldest(uav1_experience_collection, uav1_name)
+        uav1_experience_group = ExperienceGroup([uav1_normal_experience])
+        uav1 = TarotT650Oldest(uav1_experience_group, uav1_name)
 
         # uav2 or follower experience
         uav2_name = "uav1"
@@ -63,9 +62,9 @@ class Scenrios:
         uav2_normal_plan = Scenrios.get_scnario_plan(uav2_name, "normal")
         uav2_normal_memeory_level_stack = Scenrios.get_normal_experience_memory_level_stack(uav2_name, "normal")
         uav2_normal_experience = Experience(uav2_mission, uav2_normal_plan, uav2_normal_memeory_level_stack, "normal")
-        uav2_experience_collection = ExperienceCollection([uav2_normal_experience])
+        uav2_experience_group = ExperienceGroup([uav2_normal_experience])
 
-        uav2 = TarotT650Oldest(uav2_experience_collection, uav2_name)
+        uav2 = TarotT650Oldest(uav2_experience_group, uav2_name)
 
         return (uav1, uav2)
 
@@ -94,7 +93,7 @@ class Scenrios:
         uav_plan_states_file = uav_plan["actions"]["goals"]["states"]["file"]
         vec_sep = uav_plan_states_file["vector_sep"]
         component_sep = uav_plan_states_file["vector_components_sep"]
-        uav_status_plan_file_path = uav_plan_states_file["path"]
+        uav_status_plan_file_path = uav_plan_states_file["str_path"]
         action_name = uav_plan["actions"]["name"]
 
         

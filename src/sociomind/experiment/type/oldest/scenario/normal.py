@@ -3,7 +3,7 @@ from multirobotix.experiment.scenario import Scenario as MrsScenario
 from sociomind.experiment.type.oldest.scenario.world.hollow_nested_cubes import HollowNestedCubes
 from sociomind.experiment.type.oldest.scenrios import Scenrios
 
-from robotix.mind.memory.stack.layer.layer import Factory  as TraceGroupLevel
+from robotix.mind.memory.stack.factory.facrtory import Factory
 from utilix.data.storage.storage import Storage
 
 
@@ -35,7 +35,7 @@ class Normal(MrsScenario):
 
 
     def remember(self)->None:
-        uav1_lowest_normal_experience_level_storage:Storage = self._uav1.remember_experience_by_name(self._experience_name).get_lowest_layer().get_storage()
+        uav1_lowest_normal_experience_level_storage:Storage = self._uav1.remember_experience_by_name(self._experience_name).get_lowest_layer().get_trace_group()
 
         trace_group = TraceGroupLevel(self._uav1_mission, self._uav1_plan)
         uav1_lowest_normal_experience_level_storage.attach_add_value_observer(trace_group)
