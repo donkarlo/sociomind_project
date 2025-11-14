@@ -1,3 +1,5 @@
+from robotix.mind.memory.composite.decorator.segregatored import Segregatored
+from robotix.mind.memory.composite.factory.stack import Stack as CompositeMemoryStack
 from utilix.data.storage.type.file.format.kind.yaml.yaml import Yaml as YamlFormat
 from multirobotix.group import Group as RobotGroup
 from multirobotix.experiment.experiment import Experiment
@@ -10,7 +12,7 @@ from utilix.data.storage.decorator.multi_valued.uniformated import UniFormated
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.type.file.file import File
 from utilix.data.type.dic.dic import Dic
-from utilix.os.path.path import Path
+from utilix.os.file_system.path.path import Path
 
 
 class Oldest(Experiment):
@@ -20,13 +22,18 @@ class Oldest(Experiment):
     def __init__(self):
         print("Oldest experiment is initializing ...")
 
-        shared_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/${uav_name}/mind/memory/experiences/"
-        shared_all_modalities_file_name = "all_modalities.yaml"
+        path_sep = Path.get_os_path_separator()
+        shared_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/"
+        shared_mind_path = "mind/"
+        shared_path_to_exps = "memory/long_term/explicit/episodic/experience/"
+        # [0, -1] is to get rid of the the trailing slash experience/
+        shared_path_parts_to_exps = shared_path_to_exps.split(path_sep)[0:-1]
+        shared_all_mod_file_name = "all_modalities.yaml"
 
         robot_props = [Dic({"name": "uav1"})]
         # robot_props.append(Dic({"name": "uav2"}))
 
-        experience_props = [Dic({"name": "normal"})]
+        exp_props = [Dic({"name": "normal"})]
         # experience_props.append(Dic({"name": "follow"}))
         # experience_props.append(Dic({"name": "next_to"}))
 
@@ -36,30 +43,40 @@ class Oldest(Experiment):
 
 
         for robot_prop in robot_props:
+            compit_mem_stack = CompositeMemoryStack(shared_path_parts_to_exps)
             # we have ros files for each experience independently so we send None here
-            robot_experience_composite_memory_root = CompositeMemory(None, robot_prop["name"])
-            robot_name_replaced_path = shared_path.replace("${uav_name}", robot_prop["name"])
+            robot_name = robot_prop["name"]
+            robot_exp_compit_memory_root = compit_mem_stack.get_root_composite()
+            robot_shared_mind_path = shared_path + robot_name + path_sep + shared_mind_path
+            robot_shared_exps_path = robot_shared_mind_path + shared_path_to_exps
 
             #Go through the experience of each robot
-            for robot_experience_prop in experience_props:
-                robot_experience_dir_path = robot_name_replaced_path+ Path.get_os_path_separator() + robot_experience_prop["name"]
-                robot_experience_file_path = robot_experience_dir_path + Path.get_os_path_separator() + shared_all_modalities_file_name
+            for robot_exp_prop in exp_props:
+                exp_name = robot_exp_prop["name"]
+                robot_exp_dir_path = robot_shared_exps_path+ path_sep + exp_name + path_sep
+                robot_exp_all_mod_file_path = robot_exp_dir_path + path_sep + shared_all_mod_file_name
 
-                robot_experience_trace_group = StoragedTraceGroup(TraceGroup(None), UniformatedMultiValuedYamlFile(robot_experience_file_path))
+                robot_exp_trace_group = StoragedTraceGroup(TraceGroup(None, shared_all_mod_file_name), UniformatedMultiValuedYamlFile(robot_exp_all_mod_file_path, False))
 
-                robot_experience_composite_memory_node = CompositeMemory(robot_experience_trace_group, robot_experience_prop["name"])
+                robot_exp_composite_memory_node = Segregatored(CompositeMemory(robot_exp_trace_group, exp_name))
 
-                robot_experience_composite_memory_root.add_child(robot_experience_composite_memory_node)
+                compit_mem_stack.get_deepest_composite().add_child(robot_exp_composite_memory_node)
 
                 #Go through the modality of each experience
                 for modality_prop in modality_props:
-                    robot_exp_mod_path = robot_experience_dir_path + Path.get_os_path_separator() + modality_prop["name"]
-                    robot_exp_mod_storage = StoragedTraceGroup(TraceGroup(None), UniFormated(MultiValued(File(Path(robot_exp_mod_path)),"---"),YamlFormat))
-                    modality_trace_group = StoragedTraceGroup(TraceGroup(None), robot_exp_mod_storage)
-                    robot_modality_memory_node = CompositeMemory(modality_trace_group, modality_prop["name"])
-                    robot_experience_composite_memory_node.add_child(robot_modality_memory_node)
+                    mod_name = modality_prop["name"]
+                    robot_exp_mod_path = Path(robot_exp_dir_path + mod_name)
+                    
+                    robot_exp_mod_storage = UniFormated(MultiValued(File(robot_exp_mod_path, False),"---"),YamlFormat)
 
-        robot_experience_composite_memory_root.draw_tree()
+                    modality_trace_group = StoragedTraceGroup(TraceGroup(None, mod_name), robot_exp_mod_storage)
+
+                    robot_modality_memory_node = CompositeMemory(modality_trace_group, mod_name)
+                    robot_exp_composite_memory_node.add_child(robot_modality_memory_node)
+
+            robot_exp_compit_memory_root.draw_tree()
+            robot_exp_compit_memory_root.draw()
+            robot_exp_compit_memory_root.create_directory_structure(Path(robot_shared_mind_path), "pkl")
 
 
 
