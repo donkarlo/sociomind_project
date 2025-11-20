@@ -9,7 +9,7 @@ from utilix.data.storage.storage import Storage
 
 class Normal(MrsScenario):
     def __init__(self):
-        self.__name = Scenrios.get_scnario_configs()["members"]["normal"]["name"]
+        self.__name = Scenrios.get_scnario_configs()["members"]["normal"]["_kind"]
         self._experience_name = self.__name
         world = HollowNestedCubes([Obstacle()])
 

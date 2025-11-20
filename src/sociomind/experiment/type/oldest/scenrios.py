@@ -8,9 +8,9 @@ from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.mind.memory.long_term.explicit.episodic.experience.experience import Experience
-from robotix.mind.memory.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
-from physix.quantity.type.kinematic.pose.position.position import Position
+from robotix.mind.memory.kind.long_term.explicit.episodic.experience.experience import Experience
+from robotix.mind.memory.kind.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
+from physix.quantity.kind.kinematic.pose.position.position import Position
 from robotix.mind.goal.position_tolerance_criterion import PositionToleranceCriterion
 from robotix.mind.action.collection.factory import Factory as ActionCollectionGenerator
 from robotix.mind.goal.goal import Goal
@@ -94,7 +94,7 @@ class Scenrios:
         vec_sep = uav_plan_states_file["vector_sep"]
         component_sep = uav_plan_states_file["vector_components_sep"]
         uav_status_plan_file_path = uav_plan_states_file["str_path"]
-        action_name = uav_plan["actions"]["name"]
+        action_name = uav_plan["actions"]["_kind"]
 
         
         if action_name == "goto":
@@ -115,7 +115,7 @@ class Scenrios:
         rosbag_shared_dir = scnario_configs["ros"]["bag"]["dir"]
         normal_scenario_ros_bag = scnario_configs["members"][scenario_name]["ros"]["bag"]
         normal_scenario_sor_bag_dir = normal_scenario_ros_bag["dir"]
-        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["name"]
+        rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["_kind"]
 
         noramal_file_storage_path = rosbag_shared_dir+ normal_scenario_sor_bag_dir + rosbag_shared_file_name
         file = UniformatedMultiValuedYamlFile(noramal_file_storage_path)

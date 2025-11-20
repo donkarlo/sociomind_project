@@ -1,6 +1,5 @@
-This is my phd project that should give a theory on how robotic society of multiple or one, 
-learns survival missions from guidance to and how a new member learns the language of a society 
-or how two parents teach skills to a new member
+The goal of this PhD thesis is to provide evidence that communication though a grounded language siomilar to human natural language give a group of robots a better survival chance to that group. 
+It tries to build a temporal models from proprioceptive and exteroceptive data 
 
 
 # Commands

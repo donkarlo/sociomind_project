@@ -1,5 +1,5 @@
 from mathx.linalg.tensor.vector.vector import Vector
-from physix.quantity.type.kinematic.pose.type.quaternion_pose import QuaternionPose
+from physix.quantity.kind.kinematic.pose.type.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
 from robotix.mind.action.collection.collection import Collection
