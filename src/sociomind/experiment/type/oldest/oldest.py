@@ -2,6 +2,7 @@ from robotix.mind.memory.composite.decorator.segregatored import Segregatored
 from robotix.mind.memory.composite.factory.from_name_dictionary import FromNameDictionary as CompositeMemoryDic
 from robotix.mind.memory.composite.segregation.segregator.kind.ros_bag_yaml_message_segragator import \
     RosBagYamlMessageSegragator
+from robotix.mind.memory.schema import Schema
 from robotix.mind.memory.trace.group.kind.ros_multi_modal_yaml_messages import RosMultiModalYamlMessages
 
 from multirobotix.group import Group as RobotGroup
@@ -26,20 +27,7 @@ class Oldest(Experiment):
         path_sep = Path.get_os_path_separator()
         shared_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/"
         shared_mind_path = "mind/"
-        memory_tree_dic = Dic(
-            {
-                "memory": {
-                    "long_term": {
-                        "explicit": {
-                            "auto_biographic": {},
-                            "episodic": {},
-                            "semantic": {}
-                        }
-                    },
-                    "short_term": {}
-                }
-            }
-        )
+        memory_tree_dic = Schema().get_schema_dic()
         shared_path_to_expisode = memory_tree_dic.get_shortest_path("memory", "episodic", path_sep)+path_sep
 
         # [0, -1] is to get rid of the the trailing slash experience/
@@ -74,14 +62,20 @@ class Oldest(Experiment):
                 robot_episode_dir_path = robot_shared_episode_path+ path_sep + episode_name + path_sep
                 robot_episode_all_mod_file_path = robot_episode_dir_path + path_sep + shared_all_mod_file_name
 
-                robot_episode_trace_group = StoragedTraceGroup(TraceGroup.init_from_traces_and_kind_and_name(None, RosMultiModalYamlMessages(), shared_all_mod_file_name), UniformatedMultiValuedYamlFile(robot_episode_all_mod_file_path, False))
+
+                uniformatted_multi_valued_yaml_file = UniformatedMultiValuedYamlFile(robot_episode_all_mod_file_path,
+                                                                                     False)
+
+                robot_episode_trace_group = StoragedTraceGroup(TraceGroup.init_from_traces_and_kind_and_name(None, RosMultiModalYamlMessages(), shared_all_mod_file_name), uniformatted_multi_valued_yaml_file)
 
                 #building mixed modelity which should be segregated to be able to segregate each episode
                 compit_mem_episode = CompositeMemory(robot_episode_trace_group, episode_name)
                 robot_episode_compit_mem = Segregatored(compit_mem_episode, RosBagYamlMessageSegragator(compit_mem_episode, slice(1, 1000)))
 
-
+                # add normal experience episode for example and then follow and next_to
                 robot_episode_compit_mem_root.get_child_by_name("episodic").add_child(robot_episode_compit_mem)
+
+                # if normal is added, now segregate it
                 robot_episode_compit_mem.create_segregated_componnets_as_children()
 
                 robot_episode_compit_mem_root.draw()
