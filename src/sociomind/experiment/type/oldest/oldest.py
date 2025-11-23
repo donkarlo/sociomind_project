@@ -50,7 +50,7 @@ class Oldest(Experiment):
             robot_name = robot_prop["name"]
             compit_mem_tree = CompositeMemoryDic(memory_tree_dic)
             # we have ros files for each experience independently so we send None here
-            robot_episode_compit_mem_root = compit_mem_tree.get_root_composite()
+            robot_episode_composit_mem_root = compit_mem_tree.get_root_composite()
 
             robot_shared_mind_path = shared_path + robot_name + path_sep + shared_mind_path
             robot_shared_episode_path = robot_shared_mind_path + shared_path_to_expisode
@@ -70,16 +70,16 @@ class Oldest(Experiment):
 
                 #building mixed modelity which should be segregated to be able to segregate each episode
                 compit_mem_episode = CompositeMemory(robot_episode_trace_group, episode_name)
-                robot_episode_compit_mem = Segregatored(compit_mem_episode, RosBagYamlMessageSegragator(compit_mem_episode, slice(1, 1000)))
+                robot_episode_composit_mem = Segregatored(compit_mem_episode, RosBagYamlMessageSegragator(compit_mem_episode, slice(1, 100)))
 
                 # add normal experience episode for example and then follow and next_to
-                robot_episode_compit_mem_root.get_child_by_name("episodic").add_child(robot_episode_compit_mem)
+                robot_episode_composit_mem_root.get_child_by_name("episodic").add_child(robot_episode_composit_mem)
 
                 # if normal is added, now segregate it
-                robot_episode_compit_mem.create_segregated_componnets_as_children()
+                robot_episode_composit_mem.create_segregated_componnets_as_children()
 
-                robot_episode_compit_mem_root.draw()
-                print(robot_episode_compit_mem_root.get_tree())
+                # robot_episode_composit_mem_root.draw()
+                print(robot_episode_composit_mem_root.get_tree())
 
                 #Go through the modality of each experience
             #     for modality_prop in modality_props:
