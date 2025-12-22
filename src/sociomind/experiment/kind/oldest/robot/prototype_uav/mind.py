@@ -3,7 +3,7 @@ from robotix.mind.learning.learning import Learning
 from robotix.mind.memory.long_term.explicit.auto_biographic.episodic.experience.collection.collection import Collection as ExperienceCollection
 from robotix.mind.memory.kind.long_term.modality.group.group import \
     Group as ModalityCollection
-from robotix.mind.memory.trace.kind.kinds import Kinds
+from robotix.mind.memory.trace.kind.core.kinds import Kinds
 from robotix.mind.memory.memorizing.memorizing import Memorizing
 from robotix.mind.memory.working import Working
 from robotix.mind.memory.remembering.remembering import Remembering

@@ -4,10 +4,10 @@ from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
 from robotix.mind.action.collection.collection import Collection
 from robotix.type.uav.quad_copter.act.action.go_to import GoTo
-from sociomind.experiment.type.oldest.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
-from sociomind.experiment.type.oldest.scenario.plan.next_to import NextTo as NextToPlan
-from sociomind.experiment.type.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from sociomind.experiment.type.oldest.scenrios import Scenrios
+from sociomind.experiment.kind.oldest.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
+from sociomind.experiment.kind.oldest.scenario.plan.next_to import NextTo as NextToPlan
+from sociomind.experiment.kind.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
+from sociomind.experiment.kind.oldest.scenrios import Scenrios
 
 
 class NextTo(Scenario):

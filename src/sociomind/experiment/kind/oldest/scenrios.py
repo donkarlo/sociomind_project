@@ -2,7 +2,7 @@ from functools import cache
 from robotix.mind.memory.stack.layer.layer import Layer as ExperienceLevel
 from robotix.mind.memory.stack.stack import Stack as ExperienceLevelStack
 from robotix.mind.goal.composite.mission.mission import Mission
-from sociomind.experiment.type.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
+from sociomind.experiment.kind.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
 from robotix.mind.action.composite.plan.plan import Plan
 from typing import Tuple
 from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest

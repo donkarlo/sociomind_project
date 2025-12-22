@@ -1,20 +1,17 @@
-from robotix.mind.memory.composite.decorator.segregatored import Segregatored
+from robotix.mind.memory.composite.decorator.segregatored.segregatored import Segregatored
 from robotix.mind.memory.composite.factory.from_name_dictionary import FromNameDictionary as CompositeMemoryDic
 from robotix.mind.memory.composite.segregation.segregator.kind.ros_bag_yaml_message_segragator import \
     RosBagYamlMessageSegragator
 from robotix.mind.memory.schema import Schema
 from robotix.mind.memory.trace.group.kind.ros_multi_modal_yaml_messages import RosMultiModalYamlMessages
-from utilix.oop.klass.klass import Klass
-from utilix.oop.klass.structure.kind.based_on_inheritence import BasedOnInheritence
 
 from multirobotix.group import Group as RobotGroup
 from multirobotix.experiment.experiment import Experiment
 from robotix.mind.memory.composite.composite import Composite as CompositeMemory
 from robotix.mind.memory.trace.group.decorator.storaged import Storaged as StoragedTraceGroup
 from robotix.mind.memory.trace.group.group import Group as TraceGroup
-from robotix.mind.memory.trace.kind.kinds import Kinds as PotentialFilledTraceKinds
+from robotix.mind.memory.trace.kind.core.kinds import Kinds as PotentialFilledTraceKinds
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
-from utilix.data.storage.kind.file.file import File
 from utilix.data.kind.dic.dic import Dic
 from utilix.os.file_system.path.path import Path
 
@@ -26,17 +23,20 @@ class Oldest(Experiment):
     def __init__(self):
         print("Oldest experiment is initializing ...")
 
+        # slices to load
+        slc = slice(1, 300000)
+
         path_sep = Path.get_os_path_separator()
         shared_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/"
         shared_mind_path = "mind/"
         memory_tree_dic = Schema().get_schema_dic()
         shared_path_to_expisode = memory_tree_dic.get_shortest_path("memory", "episodic", path_sep)+path_sep
 
-        # [0, -1] is to get rid of the the trailing slash experience/
-        shared_all_mod_file_name = "all_modalities.yaml"
+        # each file is named all_modalities.yaml
+        all_mixed_memory_traces_for_single_episode = "all_modalities.yaml"
 
-        robot_props = [Dic({"name": "uav1"})]
-        # robot_props.append(Dic({"name": "uav2"}))
+        robots_props = [Dic({"name": "uav1"})]
+        # robots_props.append(Dic({"name": "uav2"}))
 
         #episode here is the experience name
         episode_props = [Dic({"name": "normal"})]
@@ -47,60 +47,48 @@ class Oldest(Experiment):
                           Dic({"name": PotentialFilledTraceKinds.lidar_scan_ranges.name})]
 
 
-
-        for robot_prop in robot_props:
+        # building the robots and loading their mind
+        for robot_prop in robots_props:
             robot_name = robot_prop["name"]
+
+            # Building memory
             composit_memmory_tree = CompositeMemoryDic(memory_tree_dic)
-            # we have ros files for each experience independently so we send None here
+
+            ## we have ros files for each experience independently so we send None here
             robot_episode_composit_mem_root = composit_memmory_tree.get_root_composite()
 
             robot_shared_mind_path = shared_path + robot_name + path_sep + shared_mind_path
             robot_shared_episode_path = robot_shared_mind_path + shared_path_to_expisode
 
             #Go through the episode of each robot
-            # EPSODE IS HERE NORMA OR FOLLOW OR NEXT TO EXPERIENCES
             for episode_prop in episode_props:
                 episode_name = episode_prop["name"]
                 robot_episode_dir_path = robot_shared_episode_path+ path_sep + episode_name + path_sep
-                robot_episode_all_mod_file_path = robot_episode_dir_path + path_sep + shared_all_mod_file_name
+                robot_episode_all_mod_file_path = robot_episode_dir_path + path_sep + all_mixed_memory_traces_for_single_episode
 
 
-                # slices to load
-                slc = slice(1, 10000)
+
                 uniformatted_multi_valued_yaml_file = UniformatedMultiValuedYamlFile(robot_episode_all_mod_file_path,
                                                                                      slc,False)
 
-                robot_episode_trace_group = StoragedTraceGroup(TraceGroup.init_from_traces_and_kind_and_name(None, RosMultiModalYamlMessages(), shared_all_mod_file_name), uniformatted_multi_valued_yaml_file)
+                robot_episode_trace_group = StoragedTraceGroup(TraceGroup.init_from_traces_and_kind_and_name(None, RosMultiModalYamlMessages(), all_mixed_memory_traces_for_single_episode), uniformatted_multi_valued_yaml_file)
 
+                #Todo:  is segregation possible? the robot should ask itself and decide base on relatned nodes
+                #TODO: the robot should understand if it needs segregation according to anomally level or not?
+                #TODO: is resegregation necessary?
                 #building mixed modality which should be segregated to be able to segregate each episode
-                compit_mem_episode = CompositeMemory(robot_episode_trace_group, episode_name)
-                robot_segregatble_episode_composit_memory = Segregatored(compit_mem_episode, RosBagYamlMessageSegragator(compit_mem_episode))
+                composite_memory_episode = CompositeMemory(robot_episode_trace_group, episode_name)
+                robot_segregatble_episode_composit_memory = Segregatored(composite_memory_episode, RosBagYamlMessageSegragator(composite_memory_episode, slc))
 
-                # add normal experience episode for example and then follow and next_to
+                # add normal episode for example and then follow and next_to
                 robot_episode_composit_mem_root.get_child_by_name("episodic").add_child(robot_segregatble_episode_composit_memory)
 
                 # if normal is added, now segregate it
                 robot_segregatble_episode_composit_memory.create_segregated_componnets_as_children()
 
-                # robot_episode_composit_mem_root.draw()
+                robot_episode_composit_mem_root.draw()
                 print(robot_episode_composit_mem_root.get_tree())
-                Klass.init_from_object(robot_segregatble_episode_composit_memory).draw_inherited_classes()
-
-                #Go through the modality of each experience
-            #     for modality_prop in modality_props:
-            #         mod_name = modality_prop["name"]
-            #         robot_episode_mod_path = Path(robot_episode_dir_path + mod_name)
-            #
-            #         robot_episode_mod_storage = UniTraceKinded(SlicedValues(File(robot_episode_mod_path, False),"---"),YamlFormat)
-            #
-            #         modality_trace_group = StoragedTraceGroup(TraceGroup(None, mod_name), robot_episode_mod_storage)
-            #
-            #         robot_modality_memory_node = CompositeMemory(modality_trace_group, mod_name)
-            #         robot_episode_compit_mem.add_child(robot_modality_memory_node)
-            #
-            # robot_exp_compit_memory_root.draw_tree()
-            # robot_exp_compit_memory_root.draw()
-            # robot_exp_compit_memory_root.create_directory_structure(Path(robot_shared_mind_path), "pkl")
+                # Klass.init_from_object(robot_segregatble_episode_composit_memory).draw_inherited_classes()
 
 
 
