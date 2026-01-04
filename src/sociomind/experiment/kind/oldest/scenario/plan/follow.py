@@ -1,4 +1,4 @@
-from robotix.mind.action.composite.plan.plan import Plan
+from robotix.body.actuator.action.composite.plan.plan import Plan
 
 
 class Follow(Plan):

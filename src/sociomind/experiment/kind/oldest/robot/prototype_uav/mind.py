@@ -1,13 +1,13 @@
-from robotix.mind.decision_making.decision_making import DecisionMaking
+from robotix.mind.cognition.process.kind.thinking.decision_making.decision_making import DecisionMaking
 from robotix.mind.learning.learning import Learning
 from robotix.mind.memory.long_term.explicit.auto_biographic.episodic.experience.collection.collection import Collection as ExperienceCollection
-from robotix.mind.memory.kind.long_term.modality.group.group import \
+from robotix.mind.cognition.process.kind.memory.kind.long_term.modality.group.group import \
     Group as ModalityCollection
-from robotix.mind.memory.trace.kind.core.kinds import Kinds
-from robotix.mind.memory.memorizing.memorizing import Memorizing
-from robotix.mind.memory.working import Working
-from robotix.mind.memory.remembering.remembering import Remembering
-from robotix.mind.reasoning.reasoning import Reasoning
+from robotix.trace.kind.core.group import Group
+from robotix.mind.cognition.process.kind.memory.memorizing.memorizing import Memorizing
+from robotix.mind.cognition.process.kind.memory.working.working import Working
+from robotix.mind.cognition.process.kind.memory.remembering.remembering import Remembering
+from robotix.mind.cognition.process.kind.thinking.reasoning.reasoning import Reasoning
 
 
 class Mind():
@@ -34,11 +34,11 @@ class Mind():
         All experiences have the same modality architecture ie all have lidar and gps
         :return:
         """
-        experience_modality_kinds = [Kinds.gaussianed_quaternion_kinematic, Kinds.lidar_scan_ranges]
+        experience_modality_kinds = [Group.gaussianed_quaternion_kinematic, Group.lidar_scan_ranges]
         self._experiences_file_paths = experience_file_path
 
         for kind in experience_modality_kinds:
-            self._
+            pass
 
 
     def _build_experience_modality_stacks(self):

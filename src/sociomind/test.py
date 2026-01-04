@@ -1,18 +1,19 @@
-from utilix.oop.klass.structure.kind.based_on_inheritence import BasedOnInheritence
+import pickle
 
 
-class Mamal:
-    def __init__(self, kind:str, name: str, age: int) -> None:
-        self._name = name
-        self._age = age
-        self._kind = kind
+class ModulePathRemappingUnpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        if module == "sensorx.type.lidar.observation.observation" and name == "Observation":
+            module = "sensorx.kind.lidar.observation.observation"
+        return super().find_class(module, name)
 
-class Person(Mamal):
-    def __init__(self, name:str, age:int):
-        super().__init__("human",name, age)
 
-class Mohammad(Person):
-    def __init__(self, name:str):
-        super().__init__("Mohammad", 42)
+def load_with_remap(file_object):
+    return ModulePathRemappingUnpickler(file_object).load()
 
-print(Person)
+
+with open("/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/uav1/mind/memory/long_term/explicit/episodic/normal/lidar_scan_ranges_sliced_from_1_to_300000/lidar_scan_ranges_sliced_from_1_to_300000.pkl", "rb") as file_handle:
+    ram = load_with_remap(file_handle)
+
+with open("/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/uav1/mind/memory/long_term/explicit/episodic/normal/lidar_scan_ranges_sliced_from_1_to_300000/new_lidar_scan_ranges_sliced_from_1_to_300000.pkl", "wb") as file_handle:
+    pickle.dump(ram, file_handle, protocol=pickle.HIGHEST_PROTOCOL)

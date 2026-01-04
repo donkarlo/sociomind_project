@@ -1,9 +1,9 @@
 from mathx.linalg.tensor.vector.vector import Vector
-from physix.quantity.kind.kinematic.pose.type.quaternion_pose import QuaternionPose
+from physix.quantity.kind.kinematic.pose.kind.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
-from robotix.mind.action.collection.collection import Collection
-from robotix.type.uav.quad_copter.act.action.go_to import GoTo
+from robotix.body.actuator.action.collection.collection import Collection
+from robotix.kind.uav.quad_copter.act.action.go_to import GoTo
 from sociomind.experiment.kind.oldest.scenario.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
 from sociomind.experiment.kind.oldest.scenario.plan.next_to import NextTo as NextToPlan
 from sociomind.experiment.kind.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor

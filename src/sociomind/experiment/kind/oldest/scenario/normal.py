@@ -3,7 +3,6 @@ from multirobotix.experiment.scenario import Scenario as MrsScenario
 from sociomind.experiment.kind.oldest.scenario.world.hollow_nested_cubes import HollowNestedCubes
 from sociomind.experiment.kind.oldest.scenrios import Scenrios
 
-from robotix.mind.memory.stack.factory.facrtory import Factory
 from utilix.data.storage.storage import Storage
 
 

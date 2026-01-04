@@ -1,18 +1,18 @@
 from functools import cache
-from robotix.mind.memory.stack.layer.layer import Layer as ExperienceLevel
-from robotix.mind.memory.stack.stack import Stack as ExperienceLevelStack
+from robotix.mind.cognition.process.kind.memory.stack.layer.layer import Layer as ExperienceLevel
+from robotix.mind.cognition.process.kind.memory.stack.stack import Stack as ExperienceLevelStack
 from robotix.mind.goal.composite.mission.mission import Mission
 from sociomind.experiment.kind.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from robotix.mind.action.composite.plan.plan import Plan
+from robotix.body.actuator.action.composite.plan.plan import Plan
 from typing import Tuple
-from robotix.type.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
+from robotix.kind.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.mind.memory.kind.long_term.explicit.episodic.experience.experience import Experience
-from robotix.mind.memory.kind.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
+from robotix.mind.cognition.process.kind.memory.kind.long_term.explicit.episodic.experience.experience import Experience
+from robotix.mind.cognition.process.kind.memory.kind.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
 from physix.quantity.kind.kinematic.pose.position.position import Position
-from robotix.mind.goal.position_tolerance_criterion import PositionToleranceCriterion
-from robotix.mind.action.collection.factory import Factory as ActionCollectionGenerator
+from robotix.mind.goal.kind.position_tolerance_criterion import PositionToleranceCriterion
+from robotix.body.actuator.action.collection.factory import Factory as ActionCollectionGenerator
 from robotix.mind.goal.goal import Goal
 from physix.dimension.unit.unit import Unit
 
@@ -98,7 +98,7 @@ class Scenrios:
 
         
         if action_name == "goto":
-            from robotix.type.uav.quad_copter.act.action.go_to import GoTo
+            from robotix.kind.uav.quad_copter.act.action.go_to import GoTo
             sample_goal_state = Position(0,0,0)
             ptc_val = uav_plan["actions"]["goals"]["acceptance_criterion"]["tolerance"]
             sample_goal_acceptance = PositionToleranceCriterion(ptc_val)
