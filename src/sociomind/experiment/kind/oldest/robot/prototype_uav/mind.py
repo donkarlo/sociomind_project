@@ -1,12 +1,12 @@
 from robotix.mind.cognition.process.kind.thinking.decision_making.decision_making import DecisionMaking
-from robotix.mind.learning.learning import Learning
+from robotix.structure.kind.mind.learning.learning import Learning
 from robotix.mind.memory.long_term.explicit.auto_biographic.episodic.experience.collection.collection import Collection as ExperienceCollection
-from robotix.mind.cognition.process.kind.memory.kind.long_term.modality.group.group import \
+from robotix.structure.kind.mind.process.kind.memory.kind.long_term.modality.group.group import \
     Group as ModalityCollection
-from robotix.trace.kind.core.group import Group
-from robotix.mind.cognition.process.kind.memory.memorizing.memorizing import Memorizing
-from robotix.mind.cognition.process.kind.memory.working.working import Working
-from robotix.mind.cognition.process.kind.memory.remembering.remembering import Remembering
+from robotix.structure.kind.mind.process.kind.memory.composite.trace.kind.core.kinds import Group
+from robotix.structure.kind.mind.process.kind.memory.memorizing.memorizing import Memorizing
+from robotix.structure.mind.process.kind.memory.kind.working.working import Working
+from robotix.structure.kind.mind.process.kind.memory.remembering.remembering import Remembering
 from robotix.mind.cognition.process.kind.thinking.reasoning.reasoning import Reasoning
 
 

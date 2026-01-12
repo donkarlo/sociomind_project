@@ -1,17 +1,17 @@
-from robotix.mind.cognition.process.kind.memory.composite.decorator.segregatored.segregatored import Segregatored
-from robotix.mind.cognition.process.kind.memory.composite.factory.from_name_dictionary import FromNameDictionary as CompositeMemoryDic
-from robotix.mind.cognition.process.kind.memory.composite.interaction.binary.segregation.segregator.kind.ros_bag_yaml_message_segragator import \
+from robotix.structure.kind.mind.process.kind.memory.composite.decorator.segregatored.segregatored import Segregatored
+from robotix.structure.kind.mind.process.kind.memory.composite.factory.from_name_dictionary import FromNameDictionary as CompositeMemoryDic
+from robotix.structure.kind.mind.process.kind.memory.composite.action.intra_action.binary.segregation.segregator.kind.ros_bag_yaml_message_segragator import \
     RosBagYamlMessageSegragator
-from robotix.mind.cognition.process.kind.memory.schema import Schema
-from robotix.trace.group.kind.ros_multi_modal_yaml_messages import RosMultiModalYamlMessages
+from robotix.structure.structure import Structure
+from robotix.structure.kind.mind.process.kind.memory.composite.trace.group.kind.ros_multi_modal_yaml_messages import RosMultiModalYamlMessages
 
 from multirobotix.group import Group as RobotGroup
 from multirobotix.experiment.experiment import Experiment
-from robotix.mind.cognition.process.kind.memory.composite.composite import Composite as CompositeMemory
-from robotix.trace.group.decorator.storaged import Storaged as StoragedTraceGroup
-from robotix.trace.group.group import Group as TraceGroup
-from robotix.trace.kind.core.group import Group as PotentialFilledTraceKinds
-from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
+from robotix.structure.kind.mind.process.kind.memory.composite.composite import Composite as CompositeMemory
+from robotix.structure.kind.mind.process.kind.memory.composite.trace.group.decorator.storaged import Storaged as StoragedTraceGroup
+from robotix.structure.kind.mind.process.kind.memory.composite.trace.group.group import Group as TraceGroup
+from robotix.structure.kind.mind.process.kind.memory.composite.trace.kind.core.kinds import Group as PotentialFilledTraceKinds
+from utilix.data.storage.factory.uni_kinded_multi_valued_yaml_file import UniKindedMultiValuedYamlFile
 from utilix.data.kind.dic.dic import Dic
 from utilix.os.file_system.path.path import Path
 
@@ -24,7 +24,9 @@ class Oldest(Experiment):
         print("Oldest experiment is initializing ...")
 
 
-        # loading robot - this part is just like waking up
+        # TODO: All this part must be moved to yaml configuration file
+
+        # loading robot - this part is just like enliven or waking up
 
         # TODO: call robot mind set_mode
 
@@ -32,10 +34,12 @@ class Oldest(Experiment):
         slc = slice(1, 300000)
 
         path_sep = Path.get_os_path_separator()
+        #sample_dir_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/uav1/structure/mind/memory/explicit/long_term/episodic/experiences/normal"
         shared_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/"
-        shared_mind_path = "mind/"
-        memory_tree_dic = Schema().get_schema_dic()
-        shared_path_to_expisode = memory_tree_dic.get_shortest_path("memory", "episodic", path_sep)+path_sep
+        structure_tree = Structure().get_structure()
+
+        #this path goes through mind ... memory
+        shared_path_to_expisode = structure_tree.get_unique_shortest_path_from_top_to_bottom("structure", "episodic", path_sep)+path_sep
 
         # each file is named all_modalities.yaml
         all_mixed_memory_traces_for_single_episode = "mixed_traces.yaml"
@@ -58,13 +62,12 @@ class Oldest(Experiment):
             robot_name = robot_prop["name"]
 
             # Building memory
-            composit_memmory_tree = CompositeMemoryDic(memory_tree_dic)
+            composit_memmory_tree = CompositeMemoryDic(structure_tree)
 
             ## we have ros files for each experience independently so we send None here
             robot_episode_composit_mem_root = composit_memmory_tree.get_root_composite()
 
-            robot_shared_mind_path = shared_path + robot_name + path_sep + shared_mind_path
-            robot_shared_episode_path = robot_shared_mind_path + shared_path_to_expisode
+            robot_shared_episode_path = shared_path + robot_name + path_sep + shared_path_to_expisode
 
             #Go through the episode of each robot
             for episode_prop in episode_props:
@@ -74,10 +77,10 @@ class Oldest(Experiment):
 
 
 
-                uniformatted_multi_valued_yaml_file = UniformatedMultiValuedYamlFile(robot_episode_all_mod_file_path,
-                                                                                     slc,False)
+                uniformatted_multi_valued_yaml_file = UniKindedMultiValuedYamlFile(robot_episode_all_mod_file_path,
+                                                                                   slc, False)
 
-                robot_episode_trace_group = StoragedTraceGroup(TraceGroup.init_from_traces_and_kind_and_name(None, RosMultiModalYamlMessages(), all_mixed_memory_traces_for_single_episode), uniformatted_multi_valued_yaml_file)
+                robot_episode_trace_group = StoragedTraceGroup(TraceGroup.init_by_traces_and_kind_and_name(None, RosMultiModalYamlMessages(), all_mixed_memory_traces_for_single_episode), uniformatted_multi_valued_yaml_file)
 
                 #Todo:  is segregation possible? the robot should ask itself and decide base on relatned nodes
                 #TODO: the robot should understand if it needs segregation according to anomally level or not?
@@ -91,7 +94,7 @@ class Oldest(Experiment):
 
                 # if normal is added, now segregate it
                 # TODO: this should be automated. For example the robot should try to find out if segregation helps it with better reducing the suprise or free enrgy
-                # Todo: if the the storage memory already exists, this must be stopped
+                # Todo: if the the internal_storage memory already exists, this must be stopped
                 robot_segregatble_episode_composit_memory.create_segregated_componnets_as_children()
 
                 robot_episode_composit_mem_root.draw()

@@ -1,19 +1,19 @@
 from functools import cache
-from robotix.mind.cognition.process.kind.memory.stack.layer.layer import Layer as ExperienceLevel
-from robotix.mind.cognition.process.kind.memory.stack.stack import Stack as ExperienceLevelStack
-from robotix.mind.goal.composite.mission.mission import Mission
-from sociomind.experiment.kind.oldest.scenario.mission.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from robotix.body.actuator.action.composite.plan.plan import Plan
+from robotix.structure.mind.process.kind.memory.stack.layer.layer import Layer as ExperienceLevel
+from robotix.structure.mind.process.kind.memory.stack.stack import Stack as ExperienceLevelStack
+from robotix.structure.kind.mind.goal.composite.goal import Goal
+from sociomind.experiment.kind.oldest.experience.goal.synced_turning_arround_corridor import SyncedTurningAroundCorridor
+from robotix.structure.kind.mind.goal.action.composite.composite import Composite
 from typing import Tuple
 from robotix.kind.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
-from utilix.data.storage.factory.uniformated_multi_valued_yaml_file import UniformatedMultiValuedYamlFile
+from utilix.data.storage.factory.uni_kinded_multi_valued_yaml_file import UniKindedMultiValuedYamlFile
 from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
-from robotix.mind.cognition.process.kind.memory.kind.long_term.explicit.episodic.experience.experience import Experience
-from robotix.mind.cognition.process.kind.memory.kind.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
-from physix.quantity.kind.kinematic.pose.position.position import Position
-from robotix.mind.goal.kind.position_tolerance_criterion import PositionToleranceCriterion
-from robotix.body.actuator.action.collection.factory import Factory as ActionCollectionGenerator
-from robotix.mind.goal.goal import Goal
+from robotix.structure.kind.mind.process.kind.memory.kind.long_term.explicit.episodic.experience.experience import Experience
+from robotix.structure.kind.mind.process.kind.memory.kind.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
+from physix.quantity.kind.dynamic.kinematic.pose.position.position import Position
+from robotix.structure.kind.mind.goal.kind.position_tolerance_criterion import PositionToleranceCriterion
+from robotix.structure.kind.mind.goal.action.group.factory import Factory as ActionCollectionGenerator
+from robotix.structure.kind.mind.goal.goal import Goal
 from physix.dimension.unit.unit import Unit
 
 
@@ -77,7 +77,7 @@ class Scenrios:
 
     @staticmethod
     @cache
-    def get_mission(robot_name:str)->Mission:
+    def get_mission(robot_name:str)->Goal:
         scenario_configs_dict = Scenrios.get_scnario_configs()
         goal_states = scenario_configs_dict["initial_mission"]["goals"]["robots"][robot_name]["states"]
 
@@ -87,7 +87,7 @@ class Scenrios:
 
     @staticmethod
     @cache
-    def get_scnario_plan(robot_name: str, scanario_name:str)->Plan:
+    def get_scnario_plan(robot_name: str, scanario_name:str)->Composite:
         scenario_configs_dict = Scenrios.get_scnario_configs()
         uav_plan = scenario_configs_dict["members"][scanario_name]["robots"][robot_name]["pre_plan"]
         uav_plan_states_file = uav_plan["actions"]["goals"]["states"]["file"]
@@ -105,7 +105,7 @@ class Scenrios:
             sample_goal = Goal(sample_goal_state, sample_goal_acceptance)
             sample_action = GoTo(sample_goal)
             action_collection = ActionCollectionGenerator.from_vecs_file_path(sample_action, uav_status_plan_file_path, vec_sep, component_sep)
-        return Plan(action_collection)
+        return Composite(action_collection)
 
     @staticmethod
     @cache
@@ -118,7 +118,7 @@ class Scenrios:
         rosbag_shared_file_name = normal_scenario_ros_bag["robots"][robot_name]["file"]["_kind"]
 
         noramal_file_storage_path = rosbag_shared_dir+ normal_scenario_sor_bag_dir + rosbag_shared_file_name
-        file = UniformatedMultiValuedYamlFile(noramal_file_storage_path)
+        file = UniKindedMultiValuedYamlFile(noramal_file_storage_path)
 
         level_0 = ExperienceLevel(file)
         level_stack = ExperienceLevelStack([level_0])
