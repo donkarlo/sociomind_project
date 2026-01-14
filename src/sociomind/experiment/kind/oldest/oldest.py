@@ -103,7 +103,7 @@ class Oldest(Experiment):
 
 
 
-        # now that we have the mind aqnd memory tree lets build the the Robot Group
+        # now that we have the mind aqnd memory tree lets build the the Robot Finite
         # human_group = RobotGroup(Human())
         # robot_group = LeaderFollowers(TarotT650Oldest(""), [TarotT650Oldest("")])
         # self._composite_robot_group = CompositeRobotGroup()
