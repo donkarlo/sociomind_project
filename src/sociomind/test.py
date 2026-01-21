@@ -1,12 +1,23 @@
+import matplotlib
+matplotlib.use("QtAgg")
+import matplotlib.pyplot as plt
 import numpy as np
 
-a1 = np.array(
-    [[1],
-    [3],
-    [6]])
-print(a1.ndim)  # prints 1
-print(a1.shape)  # prints 1
+# Example data
+x1 = np.array([0, 1, 2, 3])
+y1 = np.array([1, 2, 1, 2])
 
-a2 = np.array([1, 3, 6])
-print(a2.ndim)  # prints 2
-print(a2.shape)  # prints 2
+x2 = np.array([0, 1, 2, 3])
+y2 = np.array([2, 1, 2, 1])
+
+fig, ax = plt.subplots()
+
+# Scatter points for both datasets
+ax.scatter(x1, y1)
+ax.scatter(x2, y2)
+
+# Connect corresponding points
+for i in range(len(x1)):
+    ax.plot([x1[i], x2[i]], [y1[i], y2[i]])
+
+plt.show()

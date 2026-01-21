@@ -34,7 +34,7 @@ class Oldest(Experiment):
         slc = slice(1, 300000)
 
         path_sep = Path.get_os_path_separator()
-        #sample_dir_path = "/home/donkarlo/Dropbox/phd/data_set/experiements/oldest/robots/uav1/structure/mind/memory/explicit/long_term/episodic/experiences/normal"
+        #sample_dir_path = "/home/donkarlo/Dropbox/phd/pair_set/experiements/oldest/robots/uav1/structure/mind/memory/explicit/long_term/episodic/experiences/normal"
         shared_path = "/home/donkarlo/Dropbox/phd/data/experiements/oldest/robots/"
         structure_tree = Structure().get_structure()
 
