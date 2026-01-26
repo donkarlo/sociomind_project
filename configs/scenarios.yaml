@@ -23,7 +23,7 @@ unit:
   time: "second"
 ros:
   bag:
-    dir: "/home/donkarlo/Dropbox/projs/research/pair_set/self-aware-drones/ctumrs/two-drones/"
+    dir: "/home/donkarlo/Dropbox/projs/research/group/self-aware-drones/ctumrs/two-drones/"
 gazebo:
   world:
     dir: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds.yaml/"
