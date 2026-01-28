@@ -78,6 +78,7 @@ members:
             sensor:
               odom_gps:
                 msg_count: 434065
+                one_complet_turn_reads: 24450
               rp_a2:
                 msg_count: 86901
           uav2:
