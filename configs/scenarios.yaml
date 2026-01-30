@@ -26,7 +26,7 @@ ros:
     dir: "/home/donkarlo/Dropbox/projs/research/group/self-aware-drones/ctumrs/two-drones/"
 gazebo:
   world:
-    dir: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds.yaml/"
+    dir: "/home/donkarlo/Dropbox/projs/research/artificial-intelligence/self-awareness/selfaware-drones/rosws/worlds.schema.yaml/"
 
 members:
   normal:
@@ -70,11 +70,11 @@ members:
     ros:
       bag:
         dir: "normal-scenario/"
-        file_name: "uav1_odometry_odom_gps_rplidar_scan.yaml"
+        file_name: "uav1_odometry_odom_gps_rplidar_scan.schema.yaml"
         robots:
           uav1:
             file:
-              name: "uav1_odometry_odom_gps_rplidar_scan.yaml"
+              name: "uav1_odometry_odom_gps_rplidar_scan.schema.yaml"
             sensor:
               odom_gps:
                 msg_count: 434065
@@ -83,7 +83,7 @@ members:
                 msg_count: 86901
           uav2:
             file:
-              name: "uav2_odometry_odom_gps_rplidar_scan.yaml"
+              name: "uav2_odometry_odom_gps_rplidar_scan.schema.yaml"
             sensor:
               odom_gps:
                 msg_count: 434059

@@ -2,7 +2,7 @@ from mathx.linalg.tensor.vector.vector import Vector
 from physix.quantity.kind.dynamic.kinematic.pose.kind.quaternion_pose import QuaternionPose
 from physix.world.obstacle import Obstacle
 from robotix.experiment.scenario import Scenario
-from robotix.structure.kind.mind.action.group.group import Group
+from robotix.action.group.group import Group
 from robotix.kind.uav.quad_copter.act.action.go_to import GoTo
 from sociomind.experiment.kind.oldest.experience.world.hollow_nested_cubes_narrowed_on_a_side import HollowNestedCubesNarrowedOnASide
 from sociomind.experiment.kind.oldest.experience.plan.next_to import NextTo as NextToPlan

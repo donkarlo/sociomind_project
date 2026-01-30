@@ -24,7 +24,7 @@ class Oldest(Experiment):
         print("Oldest experiment is initializing ...")
 
 
-        # TODO: All this part must be moved to yaml configuration file
+        # TODO: All this part must be moved to schema.yaml configuration file
 
         # loading robot - this part is just like enliven or waking up
 
@@ -41,8 +41,8 @@ class Oldest(Experiment):
         #this path goes through mind ... memory
         shared_path_to_expisode = structure_tree.get_unique_shortest_path_from_top_to_bottom("structure", "episodic", path_sep)+path_sep
 
-        # each file is named all_modalities.yaml
-        all_mixed_memory_traces_for_single_episode = "mixed_traces.yaml"
+        # each file is named all_modalities.schema.yaml
+        all_mixed_memory_traces_for_single_episode = "mixed_traces.schema.yaml"
 
         robots_props = [Dic({"name": "uav1"})]
         # robots_props.append(Dic({"name": "uav2"}))

@@ -1,9 +1,9 @@
 from functools import cache
 from robotix.structure.mind.process.kind.memory.stack.layer.layer import Layer as ExperienceLevel
 from robotix.structure.mind.process.kind.memory.stack.stack import Stack as ExperienceLevelStack
-from robotix.structure.kind.mind.action.goal.composite.goal import Goal
+from robotix.action.goal.composite.goal import Goal
 from sociomind.experiment.kind.oldest.experience.goal.synced_turning_arround_corridor import SyncedTurningAroundCorridor
-from robotix.structure.kind.mind.action.composite.composite import Composite
+from robotix.action.composite.composite import Composite
 from typing import Tuple
 from robotix.kind.uav.quad_copter.model.tarot_t650_oldest import TarotT650Oldest
 from utilix.data.storage.factory.uni_kinded_multi_valued_yaml_file import UniKindedMultiValuedYamlFile
@@ -11,9 +11,9 @@ from utilix.data.storage.factory.single_yaml_file import SingleYamlFile
 from robotix.structure.kind.mind.process.kind.memory.kind.long_term.explicit.episodic.experience.experience import Experience
 from robotix.structure.kind.mind.process.kind.memory.kind.long_term.explicit.episodic.experience.group.group import Group as ExperienceGroup
 from physix.quantity.kind.dynamic.kinematic.pose.position.position import Position
-from robotix.structure.kind.mind.action.goal.kind.position_tolerance_criterion import PositionToleranceCriterion
-from robotix.structure.kind.mind.action.group.factory import Factory as ActionCollectionGenerator
-from robotix.structure.kind.mind.action.goal.goal import Goal
+from robotix.action.goal.kind.position_tolerance_criterion import PositionToleranceCriterion
+from robotix.action.group.factory import Factory as ActionCollectionGenerator
+from robotix.action.goal.goal import Goal
 from physix.dimension.unit.unit import Unit
 
 
@@ -71,7 +71,7 @@ class Scenrios:
     @staticmethod
     @cache
     def get_scnario_configs()->dict:
-        scenarios_configs = SingleYamlFile("../../configs/scenarios.yaml")
+        scenarios_configs = SingleYamlFile("../../configs/scenarios.schema.yaml")
         scenario_configs_dict = scenarios_configs.get_ram_dict()
         return scenario_configs_dict
 
